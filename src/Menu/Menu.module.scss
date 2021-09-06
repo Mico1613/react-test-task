@@ -1,0 +1,22 @@
+.menu {
+  width: 800px;
+  height: 500px;
+  background-color: rgb(199, 199, 199);
+  box-shadow: 40px 40px 20px 5px rgba(100, 100, 100);
+  margin-top: 100px;
+  padding: 100px 150px;
+  border-radius: 30px;
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 500;
+  }
+  .flex {
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-between;
+  }
+  button {
+    font-size: 2rem;
+  }
+}
