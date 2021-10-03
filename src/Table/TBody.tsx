@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react";
 import style from "./Table.module.scss";
-import Context from "../context";
 interface Props {
   setViewObj: (obj: object) => any;
+  dataArr: any;
 }
 type TObj = {
   id: number;
@@ -14,8 +14,7 @@ type TObj = {
   description: string;
 };
 
-function TBody({ setViewObj }: Props): ReactElement {
-  const { tableData} = React.useContext(Context);
+const TBody = React.memo(({ setViewObj, dataArr }: Props): ReactElement => {
   const onChangeView = (obj: object) => {
     setViewObj(obj);
     window.scrollTo({
@@ -23,31 +22,32 @@ function TBody({ setViewObj }: Props): ReactElement {
       behavior: "smooth",
     });
   };
-
+  function addressHandler(arg: object | string): any {
+    if (typeof arg === "object") {
+      return JSON.stringify(arg)
+        .replace(/[{":}]/gim, "")
+        .replace(/streetAddress/gim, "")
+        .replace(/city/gim, "")
+        .replace(/zip/gim, "")
+        .replace(/state/gim, "")
+        .replace(/[,]/gim, " ");
+    }
+    return arg;
+  }
   return (
-    <tbody>
-      {tableData.map((obj: TObj, index: number) => (
+    <tbody className={style.table}>
+      {dataArr.map((obj: TObj, index: number) => (
         <tr key={`${obj.id}_${index}`} onClick={() => onChangeView(obj)}>
           <td>{obj.firstName}</td>
           <td>{obj.lastName}</td>
           <td>{obj.email}</td>
           <td>{obj.phone}</td>
-          {
-            <td>
-              {JSON.stringify(obj.address)
-                .replace(/[{":}]/gim, "")
-                .replace(/streetAddress/gim, "")
-                .replace(/city/gim, "")
-                .replace(/zip/gim, "")
-                .replace(/state/gim, "")
-                .replace(/[,]/gim, " ")}
-            </td>
-          }
+          <td>{addressHandler(obj.address)}</td>
           <td>{obj.description}</td>
         </tr>
       ))}
     </tbody>
   );
-}
+});
 
 export default TBody;

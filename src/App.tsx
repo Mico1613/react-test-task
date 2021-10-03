@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Menu from "./Menu/Menu";
-import Table from "./Table/Table";
+import Menu from "./Menu";
+import Main from "./Main";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-function App() {
+const App = React.memo(() => {
   const [data, setData] = useState([]);
   const [choosen, setChoosen] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -11,7 +11,7 @@ function App() {
   const showData = async (amount: number) => {
     setChoosen(true);
     const fetchData = await fetch(
-      `http://www.filltext.com/?rows=${amount}&id={number|1000}&firstName={firstName}&delay=3&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|20}`
+      `http://www.filltext.com/?rows=${amount}&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|16}`
     );
     const resp = await fetchData.json();
     setData(resp);
@@ -27,7 +27,7 @@ function App() {
       }}
     >
       {loaded ? (
-        <Table data={data} />
+        <Main data={data} />
       ) : (
         <div>
           {choosen ? (
@@ -41,6 +41,6 @@ function App() {
       )}
     </div>
   );
-}
+});
 
 export default App;

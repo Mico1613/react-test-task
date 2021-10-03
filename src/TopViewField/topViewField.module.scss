@@ -1,7 +1,10 @@
-.table {
+.viewObj {
   margin: 50px;
+  margin-top: 30px;
   font-size: 1.2rem;
   border-collapse: collapse;
+  margin-bottom: 0;
+  font-style: italic;
   th,
   tr,
   td {
@@ -10,7 +13,6 @@
     min-width: 220px;
     max-width: 220px;
     text-align: center;
-    cursor: pointer;
   }
   tr:hover {
     background-color: rgba(182, 182, 182, 0.26);
@@ -26,9 +28,5 @@
   th {
     font-size: 1.5rem;
     user-select: none;
-  }
-  &__first {
-    margin-bottom: 0;
-    font-style: italic;
   }
 }
